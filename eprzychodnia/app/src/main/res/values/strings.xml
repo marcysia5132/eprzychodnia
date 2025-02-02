@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">E-Przychodnia</string>
+    <string name="login">Zaloguj się</string>
+    <string name="register">Załóż konto</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="email">Adres e-mail</string>
+    <string name="password">Hasło</string>
+    <string name="confirm_password">Potwierdź hasło</string>
+    <string name="no_account">Nie masz konta?</string>
+    <string name="have_account">Jednak masz konto?</string>
+    <string name="db_url">http:\/\/isi2023.000webhostapp.com\/androiddb\/</string>
+    <string name="db_url_xampp">http:\/\/10.0.2.2\/androiddb\/</string>
+</resources>
