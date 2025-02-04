@@ -10,6 +10,6 @@ class MainActivity4 : AppCompatActivity() {
         val user = MainActivity.username
         val userId = MainActivity.userId
         val textView: TextView = findViewById(R.id.textView)
-        textView.text = "Jesteś zalogowany jako pacjent $user o ID: $userId"
+        textView.text = "Witamy $user"
     }
 }
