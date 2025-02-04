@@ -20,12 +20,15 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="110dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="196dp"
-        android:text="Tryb pracownika administracji"
+        android:layout_width="346dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="84dp"
+        android:fontFamily="@font/aclonica"
+        android:gravity="center"
+        android:text="Wybierz specjalistę, aby zobaczyć jego grafik"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

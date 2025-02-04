@@ -10,6 +10,6 @@ class MainActivity6 : AppCompatActivity() {
         val user = MainActivity.username
         val userId = MainActivity.userId
         val textView: TextView = findViewById(R.id.textView)
-        textView.text = "Jesteś zalogowany jako pracownik administracji $user o ID: $userId"
+        textView.text = "Witamy $user"
     }
 }
