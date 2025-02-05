@@ -13,11 +13,12 @@ class Appointment {
         $this->db = new DbConnect();
     }
 
-    // Metoda pobiera wszystkie rekordy wizyt
+    // Metoda pobiera wszystkie rekordy wizyt dla danego doktora
     public function getAppointments(){
+
         $query = "SELECT appointments.id, appointments.date, appointments.patient_id, appointments.doctor_id, users.username
                   FROM appointments
-                  INNER JOIN users ON appointments.patient_id = users.id";
+                  INNER JOIN users ON appointments.patient_id = users.id where doctor_id = " . $_SERVER['QUERY_STRING'];
 
         $result = mysqli_query($this->db->getDb(), $query);
 
