@@ -37,7 +37,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="424dp"
-        android:text="Przeglądaj wizytę"
+        android:text="Przeglądaj wizyty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
