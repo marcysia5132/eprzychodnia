@@ -20,7 +20,7 @@ class MainActivity5 : AppCompatActivity() {
         val user = MainActivity.username
         val userId = MainActivity.userId
         val textView: TextView = findViewById(R.id.textView)
-        textView.text = "Jesteś zalogowany jako lekarz $user o ID: $userId"
+        textView.text = "Witamy $user"
         listView = findViewById(R.id.listView)
         fetchAppointments()
     }
@@ -33,7 +33,7 @@ class MainActivity5 : AppCompatActivity() {
         // Utwórz zapytanie, które oczekuje odpowiedzi w postaci tablicy JSON
         val request = JsonArrayRequest(
             Request.Method.GET,
-            "${url}?${userId}",
+            "${url}?user_id=${userId}",
             null,
             Response.Listener { response: JSONArray ->
                 appointmentsList.clear()
