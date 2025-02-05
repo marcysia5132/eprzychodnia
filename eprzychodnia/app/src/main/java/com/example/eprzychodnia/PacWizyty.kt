@@ -27,6 +27,7 @@ class PacWizyty : AppCompatActivity() {
     val id_doctor = Lista_lekarzy.selectedDoctorId
     private lateinit var listView: ListView
     val listawizyt = mutableListOf<String>()
+    var Sztuczne: Int = 0
     private fun fetchWizyty() {
         // Pobierz adres URL z pliku strings.xml
         val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
@@ -37,18 +38,17 @@ class PacWizyty : AppCompatActivity() {
             Response.Listener { response: JSONArray ->
                 listawizyt.clear()
                 // Iterujemy po elementach tablicy JSON
-                if (response.length() == 0) {
-                    // Jeśli serwer zwrócił pustą tablicę, wyświetl komunikat
-                    Toast.makeText(this, "Brak wolnych terminów w wybrany dzień", Toast.LENGTH_SHORT).show()
-                } else {
                     // Przetwarzamy terminy
                     for (i in 0 until response.length()) {
                         val wizyta = response.getJSONObject(i)
                         if (wizyta.isNull("patient_id")) {
                             val date = wizyta.getString("date")
+                            Sztuczne += 1
                             listawizyt.add(date)
                         }
                     }
+                if(Sztuczne == 0) {
+                    Toast.makeText(this, "Brak wolnych terminów w wybrany dzień", Toast.LENGTH_SHORT).show()
                 }
                 // Ustawiamy adapter, aby wyświetlić dane w ListView
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listawizyt)
