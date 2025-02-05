@@ -5,27 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Historia_wizyt">
+    tools:context=".HistWizytPacSzczegoly">
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="379dp"
-        android:layout_height="46dp"
+        android:id="@+id/HistWizytPacSzczegoly_nazwaPacjenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:textColor="#04A3BA"
+        android:layout_marginTop="52dp"
+        android:textColor="#2BBC30"
         android:textSize="20sp"
-        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/HistWizyt_ListaWizyt"
-        android:layout_width="380dp"
-        android:layout_height="645dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
