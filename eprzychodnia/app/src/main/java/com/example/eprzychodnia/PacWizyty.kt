@@ -29,7 +29,7 @@ class PacWizyty : AppCompatActivity() {
     val listawizyt = mutableListOf<String>()
     private fun fetchWizyty() {
         // Pobierz adres URL z pliku strings.xml
-        val url = getString(R.string.appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
+        val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
 
         // Utwórz zapytanie, które oczekuje odpowiedzi w postaci tablicy JSON
         val request = JsonArrayRequest(

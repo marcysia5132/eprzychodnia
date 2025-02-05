@@ -7,21 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".PracWybrLek">
 
-    <TextView
-        android:id="@+id/PracWybrLek_testid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="205dp"
-        android:layout_marginTop="66dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <CalendarView
         android:id="@+id/PracWybrLek_kalendarz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="196dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PracWybrLek_title"
+        android:layout_width="373dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="148dp"
+        android:text="Wybierz dzień na który chcesz się zapisać:"
+        android:textColor="#455EDB"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PracWybrLek_NazwaLekarza"
+        android:layout_width="373dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="88dp"
+        android:textColor="#9322A6"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

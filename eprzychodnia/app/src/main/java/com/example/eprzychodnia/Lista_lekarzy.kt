@@ -15,6 +15,7 @@ class Lista_lekarzy : AppCompatActivity() {
     companion object{
         var selectedDoctorId: Int = -1
         var NaszLekarz: String = ""
+        var NameOurDoctor: String = ""
     }
     private lateinit var listView: ListView
     private val doctorList = mutableListOf<String>()

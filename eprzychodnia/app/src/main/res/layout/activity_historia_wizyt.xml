@@ -14,15 +14,18 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="20dp"
         android:text="Twoja historia wizyt"
+        android:textColor="#04A3BA"
         android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
+        android:id="@+id/HistWizyt_ListaWizyt"
         android:layout_width="310dp"
         android:layout_height="638dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
