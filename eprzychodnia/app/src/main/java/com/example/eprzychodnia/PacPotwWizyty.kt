@@ -1,5 +1,6 @@
 package com.example.eprzychodnia
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -43,6 +44,8 @@ class PacPotwWizyty : AppCompatActivity() {
         confrimButton = findViewById(R.id.PacPotwWizte_przycisk)
         confrimButton.setOnClickListener {
             saveAppointment()
+            val intent = Intent(this, MainActivity4::class.java)
+            startActivity(intent)
         }
     }
     private fun saveAppointment() {
