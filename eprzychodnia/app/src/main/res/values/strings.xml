@@ -11,6 +11,6 @@
     <string name="db_url">http:\/\/isi2023.000webhostapp.com\/androiddb\/</string>
     <string name="db_url_xampp">http:\/\/10.0.2.2\/androiddb\/</string>
     <string name="doctors_url_xampp">http://10.0.2.2/androiddb/pobierzlekarzy.php</string>
-    <string name="appointments_url_xampp">http://10.0.2.2/androiddb/get_appointments.php</string>
+    <string name="appointments_url_xampp">http://10.0.2.2/androiddb/appointment.php</string>
     <string name="save_appointment_url_xampp">http://10.0.2.2/androiddb/save_appointment.php</string>
 </resources>
