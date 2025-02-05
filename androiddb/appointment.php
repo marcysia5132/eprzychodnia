@@ -25,11 +25,12 @@ class Appointment {
             return [];
         }
         
-        // Pobranie wizyt dla danego id_doctor
+        // Pobranie wizyt dla danego id_doctor, posortowanych po dacie
         $query = "SELECT appointments.id, appointments.date, appointments.patient_id, appointments.doctor_id, users.username
                   FROM appointments
                   LEFT JOIN users ON appointments.patient_id = users.id
-                  WHERE doctor_id = ?";
+                  WHERE doctor_id = ?
+                  ORDER BY appointments.date ASC"; // Sortowanie po dacie (rosnąco)
         $stmt = mysqli_prepare($this->db->getDb(), $query);
         mysqli_stmt_bind_param($stmt, "i", $doctorId);
         mysqli_stmt_execute($stmt);
@@ -37,6 +38,10 @@ class Appointment {
 
         $appointments = [];
         while ($row = mysqli_fetch_assoc($result)) {
+            // Sprawdzenie, czy patient_id jest null i przypisanie "Wolny termin"
+            if ($row['patient_id'] === null) {
+                $row['username'] = 'Wolny termin';
+            }
             $appointments[] = $row;
         }
 
