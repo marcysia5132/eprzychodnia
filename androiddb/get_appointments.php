@@ -25,6 +25,7 @@ $sql = "
     FROM appointments
     WHERE doctor_id = ? 
     AND DATE(date) = ?
+    ORDER BY date ASC
 ";
 
 $stmt = $conn->prepare($sql);
