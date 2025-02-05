@@ -37,7 +37,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="424dp"
-        android:text="Historia wizyt"
+        android:text="Przeglądaj wizytę"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="308dp"
-        android:text="Lista lekarzy"
+        android:text="Umów Wizytę"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
