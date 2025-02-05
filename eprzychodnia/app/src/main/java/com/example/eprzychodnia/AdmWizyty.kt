@@ -20,11 +20,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PacWizyty : AppCompatActivity() {
-    companion object {
-        var selectedVisitDate = ""
-    }
-    val id_doctor = Lista_lekarzy.selectedDoctorId
+class AdmWizyty : AppCompatActivity() {
+    val id_doctor = MainActivity6.selectedDoctorId
     private lateinit var listView: ListView
     val listawizyt = mutableListOf<String>()
     private fun fetchWizyty() {
@@ -37,19 +34,16 @@ class PacWizyty : AppCompatActivity() {
             Response.Listener { response: JSONArray ->
                 listawizyt.clear()
                 // Iterujemy po elementach tablicy JSON
-                if (response.length() == 0) {
-                    // Jeśli serwer zwrócił pustą tablicę, wyświetl komunikat
-                    Toast.makeText(this, "Brak wolnych terminów w wybrany dzień", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Przetwarzamy terminy
-                    for (i in 0 until response.length()) {
+                for (i in 0 until response.length()) {
                         val wizyta = response.getJSONObject(i)
+                        val date = wizyta.getString("date")
                         if (wizyta.isNull("patient_id")) {
-                            val date = wizyta.getString("date")
-                            listawizyt.add(date)
+                            listawizyt.add(date + "   Id_pacjenta: NULL")
+                        } else {
+                            val id_pacjenta = wizyta.getInt("patient_id")
+                            listawizyt.add(date + "   Id_pacjenta: $id_pacjenta")
                         }
                     }
-                }
                 // Ustawiamy adapter, aby wyświetlić dane w ListView
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listawizyt)
                 listView.adapter = adapter
@@ -64,14 +58,14 @@ class PacWizyty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_pac_wizyty)
+        setContentView(R.layout.activity_adm_wizyty)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        listView = findViewById(R.id.PacListaWizytDlaDaty)
-        val data_wizyt = findViewById<EditText>(R.id.PacDataWizyt)
+        listView = findViewById(R.id.AdmListaWizytyDlaDaty)
+        val data_wizyt = findViewById<EditText>(R.id.AdmDataWizyt)
         val data_z_kalendarza = PracWybrLek.selectedDateForDb
         val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         try {
@@ -82,15 +76,8 @@ class PacWizyty : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        val TextView = findViewById<TextView>(R.id.PacWizyty_lekarz)
-        TextView.text = Lista_lekarzy.NaszLekarz
+        val TextView = findViewById<TextView>(R.id.AdmWizyty_lekarz)
+        TextView.text = MainActivity6.NaszLekarz
         fetchWizyty()
-        listView.setOnItemClickListener { _, _, position, _ ->
-            val selectedVisit = listawizyt[position]
-            selectedVisitDate = selectedVisit
-
-            val intent = Intent(this, PacPotwWizyty::class.java)
-            startActivity(intent)
-        }
     }
 }
