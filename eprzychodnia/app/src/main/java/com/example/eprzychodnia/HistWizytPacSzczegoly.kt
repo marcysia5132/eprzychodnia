@@ -20,5 +20,14 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         val user = MainActivity.username
         val textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_nazwaPacjenta)
         textView.text = "$user oto szczegóły wybranej wizyty:"
+        val patientId: Int? = intent.getIntExtra("patient_id", -1).takeIf { it != -1 } // Domyślnie -1, jeśli brak
+        val appointmentDate = intent.getStringExtra("appointment_date")
+        val doctorFirstName = intent.getStringExtra("doctor_first_name")
+        val doctorLastName = intent.getStringExtra("doctor_last_name")
+        val doctorSpecialty = intent.getStringExtra("doctor_specialty")
+        val idPacjenta_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_IdPacjenta)
+        idPacjenta_textView.text = "Twoje id: $patientId"
+        val SzczegolyWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_SzczegolyWizyty)
+        SzczegolyWizyty_textView.text = "Wizyta u lekarza: $doctorFirstName $doctorLastName - $doctorSpecialty, \n Data: $appointmentDate"
     }
 }

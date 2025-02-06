@@ -43,8 +43,11 @@ class Historia_wizyt : AppCompatActivity() {
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedAppointment = wizytyData[position]
             val intent = Intent(this, HistWizytPacSzczegoly::class.java)
-            intent.putExtra("appointment_id", selectedAppointment.id)
+            intent.putExtra("patient_id", selectedAppointment.id)
             intent.putExtra("appointment_date", selectedAppointment.date)
+            intent.putExtra("doctor_first_name", selectedAppointment.doctorFirstName)
+            intent.putExtra("doctor_last_name", selectedAppointment.doctorLastName)
+            intent.putExtra("doctor_specialty", selectedAppointment.doctorSpecialty)
             startActivity(intent)
         }
     }
@@ -63,11 +66,13 @@ class Historia_wizyt : AppCompatActivity() {
                             val obj = appointments.getJSONObject(i)
                             val appointment = Appointment(
                                 obj.getString("date"),
-                                obj.getInt("doctor_id"),
+                                obj.getString("first_name"),
+                                obj.getString("last_name"),
+                                obj.getString("specialty"),
                                 obj.getInt("patient_id")
                             )
                             wizytyData.add(appointment)
-                            wizytyList.add("Wizyta u lekarza ID: ${appointment.doctorId}, Data: ${appointment.date}")
+                            wizytyList.add("Wizyta u lekarza: ${appointment.doctorFirstName} ${appointment.doctorLastName} - ${appointment.doctorSpecialty}, \n Data: ${appointment.date}")
                         }
                         adapter.notifyDataSetChanged()
                     } else {
@@ -90,5 +95,5 @@ class Historia_wizyt : AppCompatActivity() {
         VolleySingleton.getInstance(this).addToRequestQueue(request)
     }
 
-    data class Appointment(val date: String, val doctorId: Int, val id: Int)
+    data class Appointment(val date: String, val doctorFirstName: String, val doctorLastName: String, val doctorSpecialty: String, val id: Int)
 }
