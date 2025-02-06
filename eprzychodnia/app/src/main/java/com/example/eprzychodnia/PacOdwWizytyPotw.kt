@@ -1,5 +1,6 @@
 package com.example.eprzychodnia
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -37,6 +38,8 @@ class PacOdwWizytyPotw : AppCompatActivity() {
         val PrzyciskTAK = findViewById<Button>(R.id.PacOdwWizytyPotw_PrzyciskTak)
         PrzyciskTAK.setOnClickListener {
             updateAppointmentToNull(appointmentDate, doctorId)
+            val intent = Intent(this, MainActivity4::class.java)
+            startActivity(intent)
         }
     }
 
