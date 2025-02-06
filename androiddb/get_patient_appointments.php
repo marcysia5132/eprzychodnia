@@ -20,7 +20,7 @@ if (!isset($_GET['patient_id'])) {
 
 $patient_id = $_GET['patient_id'];
 
-$sql = "SELECT patient_id, doctor_id, date FROM appointments WHERE patient_id = ? ORDER BY date ASC";
+$sql = "SELECT a.date, d.first_name, d.last_name, d.specialty, a.patient_id FROM appointments a JOIN doctors d ON a.doctor_id = d.id_doctor WHERE patient_id = ? ORDER BY date ASC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $patient_id);
 $stmt->execute();
@@ -36,4 +36,3 @@ echo json_encode(["success" => true, "appointments" => $appointments]);
 $stmt->close();
 $conn->close();
 ?>
-
