@@ -14,6 +14,24 @@
         android:theme="@style/Base.Theme.Eprzychodnia"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".HistWizytPacSzczegoly"
+            android:exported="false" />
+        <activity
+            android:name=".AdmWizyty"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity6"
+            android:exported="false" />
+        <activity
+            android:name=".PacPotwWizyty"
+            android:exported="false" />
+        <activity
+            android:name=".PacWizyty"
+            android:exported="false" />
+        <activity
+            android:name=".PracWybrLek"
+            android:exported="false" />
+        <activity
             android:name=".Historia_wizyt"
             android:exported="false" />
         <activity
@@ -21,9 +39,6 @@
             android:exported="false" />
         <activity
             android:name=".grafik"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity6"
             android:exported="false" />
         <activity
             android:name=".MainActivity5"

@@ -9,26 +9,30 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="189dp"
-        android:layout_height="55dp"
+        android:layout_width="219dp"
+        android:layout_height="66dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="24dp"
+        android:fontFamily="serif"
         android:gravity="center"
         android:text="Wybierz Lekarza"
-        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="#7D168C"
+        android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.059" />
 
     <ListView
         android:id="@+id/wyswietlana_lista"
         android:layout_width="343dp"
         android:layout_height="637dp"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="148dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
