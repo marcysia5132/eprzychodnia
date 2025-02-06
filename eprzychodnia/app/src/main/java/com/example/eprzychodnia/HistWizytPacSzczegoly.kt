@@ -35,13 +35,15 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         idPacjenta_textView.text = "Twoje id: $patientId"
         val SzczegolyWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_SzczegolyWizyty)
         SzczegolyWizyty_textView.text = "Wizyta u lekarza: $doctorFirstName $doctorLastName - $doctorSpecialty, \n Data: $appointmentDate"
-
+        val ZnikajacyTekst = findViewById<TextView>(R.id.textView15)
+        ZnikajacyTekst.visibility = TextView.GONE
         val cancelButton = findViewById<Button>(R.id.cancelAppointmentButton)
         cancelButton.visibility = Button.GONE // Ukryj przycisk na początku
 
         // Sprawdzenie, czy data wizyty jest oddalona o co najmniej 24 godziny od teraz
         if (isAppointmentCancelable(appointmentDate)) {
             cancelButton.visibility = Button.VISIBLE // Pokaż przycisk, jeśli spełnia warunki
+            ZnikajacyTekst.visibility = TextView.VISIBLE
         }
 
         cancelButton.setOnClickListener {
