@@ -17,6 +17,9 @@
             android:name=".PacOdwWizytyPotw"
             android:exported="false" />
         <activity
+            android:name=".AddAppointmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".HistWizytPacSzczegoly"
             android:exported="false" />
         <activity
