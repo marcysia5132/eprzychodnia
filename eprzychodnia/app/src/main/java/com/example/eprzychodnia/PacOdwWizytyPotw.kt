@@ -28,8 +28,6 @@ class PacOdwWizytyPotw : AppCompatActivity() {
         val patientId = intent.getIntExtra("patient_id", -1).takeIf { it != -1 } // Domyślnie -1, jeśli brak
         val doctorId = intent.getIntExtra("doctor_id", -1).takeIf { it != -1 }
         val appointmentDate = intent.getStringExtra("appointment_date")
-        val textView = findViewById<TextView>(R.id.datateks)
-        textView.text = "Twoja Data: $appointmentDate"
         val PrzyciskNIE = findViewById<Button>(R.id.PacOdwWizytyPotw_PrzyciskNie)
 
         PrzyciskNIE.setOnClickListener {
