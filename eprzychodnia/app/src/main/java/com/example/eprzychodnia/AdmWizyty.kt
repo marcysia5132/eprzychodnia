@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
@@ -26,7 +27,7 @@ class AdmWizyty : AppCompatActivity() {
     val listawizyt = mutableListOf<String>()
     private fun fetchWizyty() {
         // Pobierz adres URL z pliku strings.xml
-        val url = getString(R.string.appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
+        val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
 
         // Utwórz zapytanie, które oczekuje odpowiedzi w postaci tablicy JSON
         val request = JsonArrayRequest(
@@ -79,5 +80,15 @@ class AdmWizyty : AppCompatActivity() {
         val TextView = findViewById<TextView>(R.id.AdmWizyty_lekarz)
         TextView.text = MainActivity6.NaszLekarz
         fetchWizyty()
+
+        val buttonAddAppointment: Button = findViewById(R.id.button2)
+        buttonAddAppointment.setOnClickListener {
+            val intent = Intent(this, AddAppointmentActivity::class.java).also {
+                it.putExtra("doctorId", id_doctor)
+                it.putExtra("selectedDate", data_z_kalendarza) // Załóżmy, że masz zmienną selectedDate
+                startActivity(it)
+            }
+        }
     }
+
 }
