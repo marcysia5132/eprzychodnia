@@ -1,11 +1,15 @@
 package com.example.eprzychodnia
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistWizytPacSzczegoly : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,5 +33,33 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         idPacjenta_textView.text = "Twoje id: $patientId"
         val SzczegolyWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_SzczegolyWizyty)
         SzczegolyWizyty_textView.text = "Wizyta u lekarza: $doctorFirstName $doctorLastName - $doctorSpecialty, \n Data: $appointmentDate"
+
+        val cancelButton = findViewById<Button>(R.id.cancelAppointmentButton)
+        cancelButton.visibility = Button.GONE // Ukryj przycisk na początku
+
+        // Sprawdzenie, czy data wizyty jest oddalona o co najmniej 24 godziny od teraz
+        if (isAppointmentCancelable(appointmentDate)) {
+            cancelButton.visibility = Button.VISIBLE // Pokaż przycisk, jeśli spełnia warunki
+        }
+
+        cancelButton.setOnClickListener {
+            // Logika anulowania wizyty
+            Toast.makeText(this, "Wizyta została anulowana", Toast.LENGTH_SHORT).show()
+            // Możesz dodać tutaj kod do anulowania wizyty, np. przez API lub bazę danych
+        }
+    }
+
+    // Funkcja sprawdzająca, czy wizyta jest oddalona o co najmniej 24 godziny od teraz
+    private fun isAppointmentCancelable(appointmentDate: String?): Boolean {
+        if (appointmentDate == null) return false
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) // Format daty, dostosuj do formatu w jakim masz datę
+        val appointmentDateTime = dateFormat.parse(appointmentDate)
+
+        val currentDate = Date() // Aktualna data i godzina
+        val timeDifference = appointmentDateTime.time - currentDate.time
+
+        // Sprawdzamy, czy różnica jest większa niż 24 godziny (86400000 ms)
+        return timeDifference > 86400000
     }
 }
