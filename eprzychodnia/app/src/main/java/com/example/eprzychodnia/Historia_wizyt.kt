@@ -48,6 +48,7 @@ class Historia_wizyt : AppCompatActivity() {
             intent.putExtra("doctor_first_name", selectedAppointment.doctorFirstName)
             intent.putExtra("doctor_last_name", selectedAppointment.doctorLastName)
             intent.putExtra("doctor_specialty", selectedAppointment.doctorSpecialty)
+            intent.putExtra("doctor_id", selectedAppointment.doctorId)
             startActivity(intent)
         }
     }
@@ -69,7 +70,8 @@ class Historia_wizyt : AppCompatActivity() {
                                 obj.getString("first_name"),
                                 obj.getString("last_name"),
                                 obj.getString("specialty"),
-                                obj.getInt("patient_id")
+                                obj.getInt("patient_id"),
+                                obj.getInt("doctor_id")
                             )
                             wizytyData.add(appointment)
                             wizytyList.add("Wizyta u lekarza: ${appointment.doctorFirstName} ${appointment.doctorLastName} - ${appointment.doctorSpecialty}, \n Data: ${appointment.date}")
@@ -95,5 +97,5 @@ class Historia_wizyt : AppCompatActivity() {
         VolleySingleton.getInstance(this).addToRequestQueue(request)
     }
 
-    data class Appointment(val date: String, val doctorFirstName: String, val doctorLastName: String, val doctorSpecialty: String, val id: Int)
+    data class Appointment(val date: String, val doctorFirstName: String, val doctorLastName: String, val doctorSpecialty: String, val id: Int, val doctorId: Int)
 }

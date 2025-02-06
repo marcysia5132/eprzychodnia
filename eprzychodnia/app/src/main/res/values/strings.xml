@@ -15,4 +15,5 @@
     <string name="get_appointments_url_xampp">http://10.0.2.2/androiddb/get_appointments.php</string>
     <string name="save_appointment_url_xampp">http://10.0.2.2/androiddb/save_appointment.php</string>
     <string name="get_patient_appointments_url_xampp">http://10.0.2.2/androiddb/get_patient_appointments.php</string>
+    <string name="OdwolanieWizytyPrzezPacjenta_url_xampp">http://10.0.2.2/androiddb/Odwolanie_wizyty_przez_pacjenta.php</string>
 </resources>

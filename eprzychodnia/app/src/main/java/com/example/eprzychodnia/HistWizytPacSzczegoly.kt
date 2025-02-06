@@ -1,5 +1,6 @@
 package com.example.eprzychodnia
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -29,6 +30,7 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         val doctorFirstName = intent.getStringExtra("doctor_first_name")
         val doctorLastName = intent.getStringExtra("doctor_last_name")
         val doctorSpecialty = intent.getStringExtra("doctor_specialty")
+        val doctorId = intent.getIntExtra("doctor_id", -1).takeIf { it != -1 } // Domyślnie -1, jeśli brak
         val idPacjenta_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_IdPacjenta)
         idPacjenta_textView.text = "Twoje id: $patientId"
         val SzczegolyWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_SzczegolyWizyty)
@@ -43,9 +45,11 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         }
 
         cancelButton.setOnClickListener {
-            // Logika anulowania wizyty
-            Toast.makeText(this, "Wizyta została anulowana", Toast.LENGTH_SHORT).show()
-            // Możesz dodać tutaj kod do anulowania wizyty, np. przez API lub bazę danych
+            val intent = Intent(this, PacOdwWizytyPotw::class.java)
+            intent.putExtra("appointment_date", appointmentDate)
+            intent.putExtra("doctor_id", doctorId)
+            intent.putExtra("patient_id", patientId)
+            startActivity(intent)
         }
     }
 
