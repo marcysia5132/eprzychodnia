@@ -41,29 +41,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/cancelAppointmentButton"
+        android:layout_width="287dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="352dp"
+        android:text="Odwołaj Wizytę"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView15"
         android:layout_width="259dp"
         android:layout_height="38dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="296dp"
         android:gravity="center"
         android:text="Chcesz odwołać wizytę?"
         android:textColor="#4F1FA4"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/cancelAppointmentButton"
-        android:layout_width="287dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="263dp"
-        android:text="Odwołaj Wizytę"
+    <TextView
+        android:id="@+id/HistWizytPacSzczegoly_OpisWizyty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="216dp"
+        android:textColor="#1C37C7"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

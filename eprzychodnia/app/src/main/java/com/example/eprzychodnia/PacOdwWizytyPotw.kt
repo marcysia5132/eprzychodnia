@@ -53,6 +53,7 @@ class PacOdwWizytyPotw : AppCompatActivity() {
         params["date"] = appointmentDate ?: ""
         params["doctor_id"] = doctorId?.toString() ?: ""
         params.remove("patient_id")
+        params.remove("info")
 
         // Używamy JSONObject do przesyłania danych
         val jsonObjectRequest = object : JsonObjectRequest(

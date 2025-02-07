@@ -12,7 +12,7 @@
         android:layout_width="127dp"
         android:layout_height="61dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginTop="536dp"
         android:text="Odwołaj"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,9 +22,33 @@
         android:layout_width="276dp"
         android:layout_height="57dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="384dp"
+        android:layout_marginTop="468dp"
         android:gravity="center"
         android:text="Chcesz odwołać wizytę?"
+        android:textColor="#541ABC"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/AdmWizytySzczegoly_Przycisk_Usun"
+        android:layout_width="127dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="384dp"
+        android:text="Usuń"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="276dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="316dp"
+        android:gravity="center"
+        android:text="Chcesz usunąć wizytę?"
         android:textColor="#541ABC"
         android:textSize="20sp"
         android:textStyle="italic"
@@ -80,27 +104,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/AdmWizytySzczegoly_Przycisk_Usun"
-        android:layout_width="127dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="300dp"
-        android:text="Usuń"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/textView19"
-        android:layout_width="276dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="232dp"
-        android:gravity="center"
-        android:text="Chcesz usunąć wizytę?"
-        android:textColor="#541ABC"
-        android:textSize="20sp"
+        android:id="@+id/AdmWizytySzczegoly_OpisWizyty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="229dp"
+        android:textColor="#BC7917"
+        android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,6 +30,7 @@ class AdmWizyty : AppCompatActivity() {
         var patientId = -1
         var patientUsername = ""
         var AppointmentDate = ""
+        var AppointmentInfo = ""
     }
     val id_doctor = MainActivity6.selectedDoctorId
     private lateinit var listView: ListView
@@ -37,6 +38,7 @@ class AdmWizyty : AppCompatActivity() {
     val listaIdPacjenta = mutableListOf<Int>()
     val listaUsernamePacjenta = mutableListOf<String>()
     val listaDatyWizyt = mutableListOf<String>()
+    val listaInfoWizyt = mutableListOf<String>()
     private fun fetchUsername(id_pacjenta: Int, callback: (String) -> Unit) {
         val url = getString(R.string.get_username_url_xampp) + "?id=$id_pacjenta"
 
@@ -73,17 +75,19 @@ class AdmWizyty : AppCompatActivity() {
                 listaIdPacjenta.clear()
                 listaDatyWizyt.clear()
                 listaUsernamePacjenta.clear()
+                listaInfoWizyt.clear()
                 val pendingRequests = mutableListOf<Boolean>()
 
                 for (i in 0 until response.length()) {
                     val wizyta = response.getJSONObject(i)
                     val date = wizyta.getString("date")
-
+                    val opiswizyty = wizyta.getString("info")
                     if (wizyta.isNull("patient_id")) {
                         listawizyt.add("$date   Wolny termin")
                         listaIdPacjenta.add(-1)
                         listaDatyWizyt.add("$date")
                         listaUsernamePacjenta.add("Nieznany")
+                        listaInfoWizyt.add("Brak szczegółów wizyty")
                     } else {
                         val id_pacjenta = wizyta.getInt("patient_id")
                         pendingRequests.add(true) // Zaznaczamy, że oczekujemy na odpowiedź
@@ -92,6 +96,7 @@ class AdmWizyty : AppCompatActivity() {
                             listaIdPacjenta.add(id_pacjenta)
                             listaUsernamePacjenta.add(username)
                             listaDatyWizyt.add("$date")
+                            listaInfoWizyt.add("$opiswizyty")
                             pendingRequests.removeAt(0) // Usuwamy oczekujące zapytanie
 
                             // Jeśli to było ostatnie zapytanie, ustaw adapter
@@ -154,10 +159,12 @@ class AdmWizyty : AppCompatActivity() {
             val selectedPatientId = listaIdPacjenta[position]
             val selectedPatientUsername = listaUsernamePacjenta[position]
             val selectedAppointmentDate = listaDatyWizyt[position]
+            val selectedAppointmentInfo = listaInfoWizyt[position]
             selectedVisitDate = selectedVisit
             patientId = selectedPatientId
             patientUsername = selectedPatientUsername
             AppointmentDate = selectedAppointmentDate
+            AppointmentInfo = selectedAppointmentInfo
             val intentSzczegoly = Intent(this, AdmWizytySzczegoly::class.java)
             startActivity(intentSzczegoly)
         }

@@ -1,6 +1,7 @@
 package com.example.eprzychodnia
 
 import android.content.Intent
+import android.icu.text.IDNA.Info
 import android.os.Bundle
 import android.provider.ContactsContract.Data
 import android.util.Log
@@ -33,6 +34,8 @@ class AdmWizytySzczegoly : AppCompatActivity() {
         val PacjentUsername = AdmWizyty.patientUsername
         val DoktorName = MainActivity6.NaszLekarz
         val DataWizyty = AdmWizyty.AppointmentDate
+        var InfoWizyty = AdmWizyty.AppointmentInfo
+        if (InfoWizyty == "") {InfoWizyty = "Brak szczegółów wizyty"}
         val PacjentTextView = findViewById<TextView>(R.id.AdmWizytySzczegoly_Pacjent)
         if (PacjentId == -1) {
             PacjentTextView.text = "Wolny termin"
@@ -43,6 +46,8 @@ class AdmWizytySzczegoly : AppCompatActivity() {
         LekarzTextView.text = "Lekarz: $DoktorName"
         val DataTextView = findViewById<TextView>(R.id.AdmWizytySzczegoly_Data)
         DataTextView.text = "Termin wizyty: $DataWizyty"
+        val AppointmentInfoTextView = findViewById<TextView>(R.id.AdmWizytySzczegoly_OpisWizyty)
+        AppointmentInfoTextView.text = "Info: $InfoWizyty"
 
         val PrzyciskOdwolaj = findViewById<Button>(R.id.AdmWizytySzczegoly_Przycisk_Odwolaj)
         PrzyciskOdwolaj.visibility = Button.GONE
@@ -76,6 +81,7 @@ class AdmWizytySzczegoly : AppCompatActivity() {
         params["date"] = appointmentDate ?: ""
         params["doctor_id"] = doctorId?.toString() ?: ""
         params.remove("patient_id")
+        params.remove("info")
 
         // Używamy JSONObject do przesyłania danych
         val jsonObjectRequest = object : JsonObjectRequest(

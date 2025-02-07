@@ -30,11 +30,15 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         val doctorFirstName = intent.getStringExtra("doctor_first_name")
         val doctorLastName = intent.getStringExtra("doctor_last_name")
         val doctorSpecialty = intent.getStringExtra("doctor_specialty")
+        var VisitInfo = intent.getStringExtra("info")
+        if (VisitInfo == "") {VisitInfo = "Brak szczegółów wizyty"}
         val doctorId = intent.getIntExtra("doctor_id", -1).takeIf { it != -1 } // Domyślnie -1, jeśli brak
         val idPacjenta_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_IdPacjenta)
         idPacjenta_textView.text = "Twoje id: $patientId"
         val SzczegolyWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_SzczegolyWizyty)
         SzczegolyWizyty_textView.text = "Wizyta u lekarza: $doctorFirstName $doctorLastName - $doctorSpecialty, \n Data: $appointmentDate"
+        val OpisWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_OpisWizyty)
+        OpisWizyty_textView.text = "Info: $VisitInfo"
         val ZnikajacyTekst = findViewById<TextView>(R.id.textView15)
         ZnikajacyTekst.visibility = TextView.GONE
         val cancelButton = findViewById<Button>(R.id.cancelAppointmentButton)
