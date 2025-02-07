@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.text.Spanned
 import android.text.Html
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView

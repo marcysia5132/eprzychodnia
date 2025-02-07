@@ -33,6 +33,10 @@ class MainActivity0 : AppCompatActivity() {
             Pomoc = 1
             startActivity(intent)
         }
+        val exitButton = findViewById<Button>(R.id.button_exit)
+        exitButton.setOnClickListener {
+            finishAffinity() // Zamyka wszystkie aktywności i kończy aplikację
+        }
     }
 
     override fun onResume() {

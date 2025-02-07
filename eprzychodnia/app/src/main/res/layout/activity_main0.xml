@@ -27,4 +27,11 @@
         android:layout_width="212dp"
         android:layout_height="wrap_content"
         android:text="Przeglądaj wizyty" />
+
+    <Button
+        android:id="@+id/button_exit"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Wyjdź" />
 </LinearLayout>
