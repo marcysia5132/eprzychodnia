@@ -26,7 +26,7 @@ class Appointment {
         }
         
         // Pobranie wizyt dla danego id_doctor, posortowanych po dacie
-        $query = "SELECT appointments.id, appointments.date, appointments.patient_id, appointments.doctor_id, users.username
+        $query = "SELECT appointments.id, appointments.date, appointments.patient_id, appointments.doctor_id, users.username, appointments.info
                   FROM appointments
                   LEFT JOIN users ON appointments.patient_id = users.id
                   WHERE doctor_id = ?
@@ -41,6 +41,9 @@ class Appointment {
             // Sprawdzenie, czy patient_id jest null i przypisanie "Wolny termin"
             if ($row['patient_id'] === null) {
                 $row['username'] = 'Wolny termin';
+            }
+            if ($row['info'] === null) {
+                $row['info'] = 'Brak szczegółów';
             }
             $appointments[] = $row;
         }
@@ -61,4 +64,3 @@ if (isset($_GET['user_id'])) {
 }
 
 ?>
-
