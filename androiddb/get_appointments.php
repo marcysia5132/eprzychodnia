@@ -21,7 +21,7 @@ $selected_date = $_GET['selected_date']; // format YYYY-MM-DD
 
 // Zapytanie SQL z konwersją daty na odpowiedni format
 $sql = "
-    SELECT date, patient_id
+    SELECT date, patient_id, COALESCE(info, '') AS info
     FROM appointments
     WHERE doctor_id = ? 
     AND DATE(date) = ?
