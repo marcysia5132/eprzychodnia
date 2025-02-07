@@ -34,4 +34,9 @@ class MainActivity0 : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        Pomoc = 0 // Resetowanie wartości po powrocie do tej aktywności
+    }
 }
