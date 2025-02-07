@@ -33,8 +33,6 @@ class HistWizytPacSzczegoly : AppCompatActivity() {
         var VisitInfo = intent.getStringExtra("info")
         if (VisitInfo == "") {VisitInfo = "Brak szczegółów wizyty"}
         val doctorId = intent.getIntExtra("doctor_id", -1).takeIf { it != -1 } // Domyślnie -1, jeśli brak
-        val idPacjenta_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_IdPacjenta)
-        idPacjenta_textView.text = "Twoje id: $patientId"
         val SzczegolyWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_SzczegolyWizyty)
         SzczegolyWizyty_textView.text = "Wizyta u lekarza: $doctorFirstName $doctorLastName - $doctorSpecialty, \n Data: $appointmentDate"
         val OpisWizyty_textView = findViewById<TextView>(R.id.HistWizytPacSzczegoly_OpisWizyty)
