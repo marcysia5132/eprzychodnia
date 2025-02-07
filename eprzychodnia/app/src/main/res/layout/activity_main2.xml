@@ -144,7 +144,7 @@
         android:layout_marginStart="8.5dp"
         android:layout_marginTop="4dp"
         android:gravity="center_vertical"
-        android:text="Akceptuję regulamin korzystania z aplikacji"
+        android:text="Akceptuję regulamin korzystania z aplikacji."
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
