@@ -58,7 +58,8 @@ class MainActivity5 : AppCompatActivity() {
                     Log.d("elo", date)
                     Log.d("elo", doctor.toString())
                     val patient = doctor.getString("username")
-                    appointmentsList.add("$date - $patient")
+                    val info = doctor.getString("info")
+                    appointmentsList.add(date + " - " + patient + "\n" + info);
                 }
                 // Ustawiamy adapter, aby wyświetlić dane w ListView
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, appointmentsList)
