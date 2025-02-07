@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Request
@@ -26,7 +27,11 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     fun onClickRegister(v: View) {
-
+        val termsChecked = findViewById<CheckBox>(R.id.termsCheckbox).isChecked
+        if (!termsChecked) {
+            Toast.makeText(this, "Musisz zaakceptować regulamin!", Toast.LENGTH_LONG).show()
+            return
+        }
         val  user = findViewById<EditText>(R.id.registerUserEditText).text.toString()
 
         val  email = findViewById<EditText>(R.id.registerEmailEditText).text.toString()
