@@ -146,11 +146,14 @@
         android:gravity="center_vertical"
         android:text="Akceptuję regulamin korzystania z aplikacji."
         android:textSize="14sp"
+        android:textColorLink="@color/purple_500"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.795" />
+        app:layout_constraintVertical_bias="0.795"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,9 @@
         android:theme="@style/Base.Theme.Eprzychodnia"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".TermsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdmWizytySzczegoly"
             android:exported="false" />
         <activity
@@ -60,9 +63,6 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity4"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity3"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
