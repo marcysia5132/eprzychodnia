@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
 }
 
 // Aktualizacja patient_id na NULL w przypadku anulowania wizyty
-$update_sql = "UPDATE appointments SET patient_id = NULL WHERE doctor_id = ? AND date = ?";
+$update_sql = "UPDATE appointments SET patient_id = NULL, info = NULL WHERE doctor_id = ? AND date = ?";
 $stmt = $conn->prepare($update_sql);
 $stmt->bind_param("is", $doctor_id, $date);
 
