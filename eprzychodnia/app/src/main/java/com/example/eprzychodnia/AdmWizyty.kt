@@ -16,46 +16,106 @@ import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.example.eprzychodnia.PacWizyty.Companion.selectedVisitDate
 import org.json.JSONArray
+import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class AdmWizyty : AppCompatActivity() {
+    companion object {
+        var selectedVisitDate = ""
+        var patientId = -1
+        var patientUsername = ""
+        var AppointmentDate = ""
+    }
     val id_doctor = MainActivity6.selectedDoctorId
     private lateinit var listView: ListView
     val listawizyt = mutableListOf<String>()
-    private fun fetchWizyty() {
-        // Pobierz adres URL z pliku strings.xml
-        val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
+    val listaIdPacjenta = mutableListOf<Int>()
+    val listaUsernamePacjenta = mutableListOf<String>()
+    val listaDatyWizyt = mutableListOf<String>()
+    private fun fetchUsername(id_pacjenta: Int, callback: (String) -> Unit) {
+        val url = getString(R.string.get_username_url_xampp) + "?id=$id_pacjenta"
 
-        // Utwórz zapytanie, które oczekuje odpowiedzi w postaci tablicy JSON
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                try {
+                    if (response.getBoolean("success")) {
+                        val username = response.getString("username")
+                        callback(username)
+                    } else {
+                        callback("Nieznany")
+                    }
+                } catch (e: JSONException) {
+                    Log.e("Fetch Username", "Błąd przy parsowaniu JSON: ${e.message}")
+                    callback("Nieznany")
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e("Fetch Username", "Błąd przy pobieraniu username: $error")
+                callback("Nieznany")
+            }
+        )
+
+        VolleySingleton.getInstance(this).addToRequestQueue(request)
+    }
+
+    private fun fetchWizyty() {
+        val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             Response.Listener { response: JSONArray ->
                 listawizyt.clear()
-                // Iterujemy po elementach tablicy JSON
+                listaIdPacjenta.clear()
+                listaDatyWizyt.clear()
+                listaUsernamePacjenta.clear()
+                val pendingRequests = mutableListOf<Boolean>()
+
                 for (i in 0 until response.length()) {
-                        val wizyta = response.getJSONObject(i)
-                        val date = wizyta.getString("date")
-                        if (wizyta.isNull("patient_id")) {
-                            listawizyt.add(date + "   Wolny termin")
-                        } else {
-                            val id_pacjenta = wizyta.getInt("patient_id")
-                            listawizyt.add(date + "   Id_pacjenta: $id_pacjenta")
+                    val wizyta = response.getJSONObject(i)
+                    val date = wizyta.getString("date")
+
+                    if (wizyta.isNull("patient_id")) {
+                        listawizyt.add("$date   Wolny termin")
+                        listaIdPacjenta.add(-1)
+                        listaDatyWizyt.add("$date")
+                        listaUsernamePacjenta.add("Nieznany")
+                    } else {
+                        val id_pacjenta = wizyta.getInt("patient_id")
+                        pendingRequests.add(true) // Zaznaczamy, że oczekujemy na odpowiedź
+                        fetchUsername(id_pacjenta) { username ->
+                            listawizyt.add("$date   Pacjent: $username")
+                            listaIdPacjenta.add(id_pacjenta)
+                            listaUsernamePacjenta.add(username)
+                            listaDatyWizyt.add("$date")
+                            pendingRequests.removeAt(0) // Usuwamy oczekujące zapytanie
+
+                            // Jeśli to było ostatnie zapytanie, ustaw adapter
+                            if (pendingRequests.isEmpty()) {
+                                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listawizyt)
+                                listView.adapter = adapter
+                            }
                         }
                     }
-                // Ustawiamy adapter, aby wyświetlić dane w ListView
-                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listawizyt)
-                listView.adapter = adapter
+                }
+
+                // Jeśli nie było zapytań o nazwiska, ustaw adapter od razu
+                if (pendingRequests.isEmpty()) {
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listawizyt)
+                    listView.adapter = adapter
+                }
             },
             Response.ErrorListener { error ->
                 Log.e("Wizyty pacjenta", "Błąd przy pobieraniu danych: $error")
             }
         )
-        // Dodajemy zapytanie do kolejki Volley (korzystamy z singletona)
         VolleySingleton.getInstance(this).addToRequestQueue(request)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -89,6 +149,17 @@ class AdmWizyty : AppCompatActivity() {
                 startActivity(it)
             }
         }
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val selectedVisit = listawizyt[position]
+            val selectedPatientId = listaIdPacjenta[position]
+            val selectedPatientUsername = listaUsernamePacjenta[position]
+            val selectedAppointmentDate = listaDatyWizyt[position]
+            selectedVisitDate = selectedVisit
+            patientId = selectedPatientId
+            patientUsername = selectedPatientUsername
+            AppointmentDate = selectedAppointmentDate
+            val intentSzczegoly = Intent(this, AdmWizytySzczegoly::class.java)
+            startActivity(intentSzczegoly)
+        }
     }
-
 }
