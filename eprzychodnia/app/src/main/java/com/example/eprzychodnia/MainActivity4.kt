@@ -28,16 +28,13 @@ class MainActivity4 : AppCompatActivity() {
         val przyciskWyloguj = findViewById<Button>(R.id.wyloguj)
         przyciskWyloguj.setOnClickListener {
             MainActivity.userId = -1
-            val intentLogowanie = Intent(this@MainActivity4, MainActivity::class.java)
+            val intentLogowanie = Intent(this@MainActivity4, MainActivity0::class.java)
 
-            // Tworzymy nowy stos aktywności, dodając MainActivity0 jako punkt powrotu
-            val sztucznaAktywnosc = TaskStackBuilder.create(this).apply {
-                addNextIntent(Intent(this@MainActivity4, MainActivity0::class.java)) // Aktywność, do której można wrócić
-                addNextIntent(intentLogowanie) // Aktywność logowania jako główna
-            }
+            // Czyszczenie stosu i ustawienie nowej aktywności jako głównej
+            intentLogowanie.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
-            sztucznaAktywnosc.startActivities() // Uruchamiamy nowy stos aktywności
-            finish() // Kończymy obecną aktywność
+            startActivity(intentLogowanie)
+            finish() // Kończymy bieżącą aktywność
         }
     }
 }
