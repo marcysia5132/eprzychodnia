@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -21,6 +22,8 @@ class MainActivity5 : AppCompatActivity() {
     private val appointmentsInfoList = mutableListOf<String>()
     private var selectedAppointmentId: Int = -1
     private lateinit var adapter: ArrayAdapter<String>
+    private val PREFS_NAME = "AppPrefs"
+    private val PREFS_THEME = "ThemeMode"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,15 @@ class MainActivity5 : AppCompatActivity() {
         listView.setOnItemClickListener { _, _, position, _ ->
             selectedAppointmentId = appointmentsIdList[position]
             showAppointmentEditDialog(position)
+        }
+        val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val themeMode = preferences.getInt(PREFS_THEME, AppCompatDelegate.MODE_NIGHT_NO) // Domyślnie tryb dzienny
+        AppCompatDelegate.setDefaultNightMode(themeMode)
+
+        // Przycisk do przełączania motywu
+        val switchThemeButton = findViewById<Button>(R.id.switchThemeButton)
+        switchThemeButton.setOnClickListener {
+            toggleTheme()
         }
     }
 
@@ -136,5 +148,21 @@ class MainActivity5 : AppCompatActivity() {
             }
         )
         VolleySingleton.getInstance(this).addToRequestQueue(request)
+    }
+    private fun toggleTheme() {
+        val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val editor = preferences.edit()
+
+        // Zmieniamy tryb na odwrotny
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        val newMode = if (currentMode == AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.MODE_NIGHT_YES // Tryb nocny
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO // Tryb dzienny
+        }
+
+        AppCompatDelegate.setDefaultNightMode(newMode)
+        editor.putInt(PREFS_THEME, newMode)
+        editor.apply()
     }
 }

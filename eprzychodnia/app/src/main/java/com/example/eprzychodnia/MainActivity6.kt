@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -21,6 +22,8 @@ class MainActivity6 : AppCompatActivity() {
         var selectedDoctorId: Int = -1
         var NaszLekarz: String = ""
     }
+    private val PREFS_NAME = "AppPrefs"
+    private val PREFS_THEME = "ThemeMode"
     private lateinit var listView: ListView
     private val doctorList = mutableListOf<String>()
     private val doctorId = mutableListOf<Int>()
@@ -97,6 +100,31 @@ class MainActivity6 : AppCompatActivity() {
             startActivity(intentLogowanie)
             finish() // Kończymy bieżącą aktywność
         }
+        val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val themeMode = preferences.getInt(PREFS_THEME, AppCompatDelegate.MODE_NIGHT_NO) // Domyślnie tryb dzienny
+        AppCompatDelegate.setDefaultNightMode(themeMode)
+
+        // Przycisk do przełączania motywu
+        val switchThemeButton = findViewById<Button>(R.id.switchThemeButton)
+        switchThemeButton.setOnClickListener {
+            toggleTheme()
+        }
+    }
+    private fun toggleTheme() {
+        val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val editor = preferences.edit()
+
+        // Zmieniamy tryb na odwrotny
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        val newMode = if (currentMode == AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.MODE_NIGHT_YES // Tryb nocny
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO // Tryb dzienny
+        }
+
+        AppCompatDelegate.setDefaultNightMode(newMode)
+        editor.putInt(PREFS_THEME, newMode)
+        editor.apply()
     }
 
 }
