@@ -37,5 +37,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
+    <Button
+        android:id="@+id/wyloguj"
+        android:layout_width="221dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="608dp"
+        android:text="Wyloguj"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

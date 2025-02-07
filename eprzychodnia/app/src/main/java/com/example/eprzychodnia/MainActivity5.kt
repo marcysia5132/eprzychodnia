@@ -1,8 +1,11 @@
 package com.example.eprzychodnia
+import android.app.TaskStackBuilder
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import com.android.volley.Request
@@ -23,6 +26,17 @@ class MainActivity5 : AppCompatActivity() {
         textView.text = "Witamy $user"
         listView = findViewById(R.id.listView)
         fetchAppointments()
+        val przyciskWyloguj = findViewById<Button>(R.id.wyloguj)
+        przyciskWyloguj.setOnClickListener {
+            MainActivity.userId = -1
+            val intentLogowanie = Intent(this@MainActivity5, MainActivity::class.java)
+            val sztucznaAktywnosc = TaskStackBuilder.create(this).apply {
+                addNextIntent(Intent(this@MainActivity5, MainActivity0::class.java))
+                addNextIntent(intentLogowanie)
+            }
+            sztucznaAktywnosc.startActivities()
+            finish()
+        }
     }
 
     private fun fetchAppointments() {
