@@ -28,6 +28,8 @@ class PacWizyty : AppCompatActivity() {
     private lateinit var listView: ListView
     val listawizyt = mutableListOf<String>()
     var Sztuczne: Int = 0
+    val Pomoc = MainActivity0.Pomoc
+    val userId = MainActivity.userId
     private fun fetchWizyty() {
         // Pobierz adres URL z pliku strings.xml
         val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
@@ -88,9 +90,13 @@ class PacWizyty : AppCompatActivity() {
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedVisit = listawizyt[position]
             selectedVisitDate = selectedVisit
-
-            val intent = Intent(this, PacPotwWizyty::class.java)
-            startActivity(intent)
+            if(Pomoc == 1 && userId == -1) {
+                val intent = Intent(this,PotrzebneLogowanie::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, PacPotwWizyty::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

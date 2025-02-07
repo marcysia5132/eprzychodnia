@@ -74,15 +74,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             MainActivity.userId = userId
-
-            val nextActivity = when (rolaId) {
-                2 -> MainActivity5::class.java
-                3 -> MainActivity6::class.java
-                else -> MainActivity4::class.java
+            val Pomoc = MainActivity0.Pomoc
+            if (Pomoc == 1) {
+                val intent = Intent(this, PacPotwWizyty::class.java)
+                startActivity(intent)
+            } else {
+                val nextActivity = when (rolaId) {
+                    2 -> MainActivity5::class.java
+                    3 -> MainActivity6::class.java
+                    else -> MainActivity4::class.java
+                }
+                val intent = Intent(this, nextActivity)
+                startActivity(intent)
+                finish()
             }
-            val intent = Intent(this, nextActivity)
-            startActivity(intent)
-            finish()
         } else {
             MainActivity.loggedin = false
             MainActivity.session = ""

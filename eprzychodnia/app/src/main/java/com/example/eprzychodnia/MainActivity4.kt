@@ -1,4 +1,5 @@
 package com.example.eprzychodnia
+import android.app.TaskStackBuilder
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,11 +25,19 @@ class MainActivity4 : AppCompatActivity() {
             val  intent = Intent(this@MainActivity4, Historia_wizyt::class.java)
             startActivity(intent)
         }
-        val  PrzyciskWyloguj = findViewById<Button>(R.id.wyloguj)
-        PrzyciskWyloguj.setOnClickListener{
-            val  intent = Intent(this@MainActivity4, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+        val przyciskWyloguj = findViewById<Button>(R.id.wyloguj)
+        przyciskWyloguj.setOnClickListener {
+            MainActivity.userId = -1
+            val intentLogowanie = Intent(this@MainActivity4, MainActivity::class.java)
+
+            // Tworzymy nowy stos aktywności, dodając MainActivity0 jako punkt powrotu
+            val sztucznaAktywnosc = TaskStackBuilder.create(this).apply {
+                addNextIntent(Intent(this@MainActivity4, MainActivity0::class.java)) // Aktywność, do której można wrócić
+                addNextIntent(intentLogowanie) // Aktywność logowania jako główna
+            }
+
+            sztucznaAktywnosc.startActivities() // Uruchamiamy nowy stos aktywności
+            finish() // Kończymy obecną aktywność
         }
     }
 }
