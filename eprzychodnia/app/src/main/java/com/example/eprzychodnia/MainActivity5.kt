@@ -41,6 +41,9 @@ class MainActivity5 : AppCompatActivity() {
 
         val przyciskWyloguj = findViewById<Button>(R.id.wyloguj)
         przyciskWyloguj.setOnClickListener {
+            // Zmieniamy tryb na dzienny przed wylogowaniem
+            setDayMode()
+
             MainActivity.userId = -1
             finish()
         }
@@ -49,6 +52,7 @@ class MainActivity5 : AppCompatActivity() {
             selectedAppointmentId = appointmentsIdList[position]
             showAppointmentEditDialog(position)
         }
+
         val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         val themeMode = preferences.getInt(PREFS_THEME, AppCompatDelegate.MODE_NIGHT_NO) // Domyślnie tryb dzienny
         AppCompatDelegate.setDefaultNightMode(themeMode)
@@ -149,6 +153,7 @@ class MainActivity5 : AppCompatActivity() {
         )
         VolleySingleton.getInstance(this).addToRequestQueue(request)
     }
+
     private fun toggleTheme() {
         val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         val editor = preferences.edit()
@@ -163,6 +168,15 @@ class MainActivity5 : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(newMode)
         editor.putInt(PREFS_THEME, newMode)
+        editor.apply()
+    }
+
+    private fun setDayMode() {
+        // Zmieniamy tryb na dzienny (app starts with day mode)
+        val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val editor = preferences.edit()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        editor.putInt(PREFS_THEME, AppCompatDelegate.MODE_NIGHT_NO)
         editor.apply()
     }
 }

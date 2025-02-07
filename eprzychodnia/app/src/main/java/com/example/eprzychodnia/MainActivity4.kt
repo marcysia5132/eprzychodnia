@@ -36,6 +36,9 @@ class MainActivity4 : AppCompatActivity() {
 
         val przyciskWyloguj = findViewById<Button>(R.id.wyloguj)
         przyciskWyloguj.setOnClickListener {
+            // Ustawiamy tryb dzienny przed wylogowaniem
+            setDayMode()
+
             MainActivity.userId = -1
             val intentLogowanie = Intent(this@MainActivity4, MainActivity0::class.java)
 
@@ -71,6 +74,15 @@ class MainActivity4 : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(newMode)
         editor.putInt(PREFS_THEME, newMode)
+        editor.apply()
+    }
+
+    private fun setDayMode() {
+        // Zmieniamy tryb na dzienny (app starts with day mode)
+        val preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val editor = preferences.edit()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        editor.putInt(PREFS_THEME, AppCompatDelegate.MODE_NIGHT_NO)
         editor.apply()
     }
 }
