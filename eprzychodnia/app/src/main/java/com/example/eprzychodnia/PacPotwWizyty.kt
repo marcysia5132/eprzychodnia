@@ -43,6 +43,7 @@ class PacPotwWizyty : AppCompatActivity() {
 
         confrimButton = findViewById(R.id.PacPotwWizte_przycisk)
         confrimButton.setOnClickListener {
+            MainActivity0.Pomoc = 0
             saveAppointment()
             val intent = Intent(this, MainActivity4::class.java)
             startActivity(intent)

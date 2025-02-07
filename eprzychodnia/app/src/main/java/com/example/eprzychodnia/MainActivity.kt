@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
             MainActivity.userId = userId
             val Pomoc = MainActivity0.Pomoc
-            if (Pomoc == 1) {
+            if (Pomoc == 1 && rolaId == 1) {
                 val intent = Intent(this, PacPotwWizyty::class.java)
                 startActivity(intent)
             } else {
