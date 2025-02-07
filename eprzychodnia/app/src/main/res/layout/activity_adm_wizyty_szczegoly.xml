@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".AdmWizytySzczegoly">
 
+    <Button
+        android:id="@+id/AdmWizytySzczegoly_Przycisk_Odwolaj"
+        android:layout_width="127dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="452dp"
+        android:text="Odwołaj"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="276dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="384dp"
+        android:gravity="center"
+        android:text="Chcesz odwołać wizytę?"
+        android:textColor="#541ABC"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView11"
         android:layout_width="260dp"
@@ -52,6 +76,30 @@
         android:layout_marginTop="183dp"
         android:textColor="#D11253"
         android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/AdmWizytySzczegoly_Przycisk_Usun"
+        android:layout_width="127dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="300dp"
+        android:text="Usuń"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="276dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="232dp"
+        android:gravity="center"
+        android:text="Chcesz usunąć wizytę?"
+        android:textColor="#541ABC"
+        android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
