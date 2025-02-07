@@ -39,7 +39,7 @@ class AdmWizyty : AppCompatActivity() {
                         val wizyta = response.getJSONObject(i)
                         val date = wizyta.getString("date")
                         if (wizyta.isNull("patient_id")) {
-                            listawizyt.add(date + "   Id_pacjenta: NULL")
+                            listawizyt.add(date + "   Wolny termin")
                         } else {
                             val id_pacjenta = wizyta.getInt("patient_id")
                             listawizyt.add(date + "   Id_pacjenta: $id_pacjenta")
