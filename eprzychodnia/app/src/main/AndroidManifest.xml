@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Eprzychodnia"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".TermsActivity"
-            android:exported="false" />
         <activity
             android:name=".AdmWizytySzczegoly"
             android:exported="false" />

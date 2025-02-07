@@ -49,4 +49,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation(kotlin("script-runtime"))
+    implementation("com.google.firebase:firebase-messaging:23.1.0")
+    implementation("androidx.core:core:1.9.0")
 }
