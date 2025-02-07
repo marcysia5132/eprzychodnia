@@ -1,6 +1,7 @@
 package com.example.eprzychodnia
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -40,10 +41,13 @@ class AddAppointmentActivity : AppCompatActivity() {
             if (selectedHour != -1 && selectedMinute != -1) {
                 val time = String.format("%02d:%02d", selectedHour, selectedMinute)
                 addAppointmentToDatabase(selectedDate, time, doctorId)
+                val intent_1 = Intent(this, MainActivity6::class.java)
+                startActivity(intent_1)
             } else {
                 Toast.makeText(this, "Wybierz godzinę!", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     private fun showTimePicker() {
