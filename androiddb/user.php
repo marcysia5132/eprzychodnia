@@ -28,7 +28,7 @@
         
         public function isEmailUsernameExist($username, $email){
             
-            $query = "select * from ".$this->db_table." where username = '$username' AND email = '$email'";
+            $query = "select * from ".$this->db_table." where username = '$username' OR email = '$email'";
             
             $result = mysqli_query($this->db->getDb(), $query);
             
