@@ -12,6 +12,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddAppointmentActivity : AppCompatActivity() {
@@ -40,21 +41,27 @@ class AddAppointmentActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             if (selectedHour != -1 && selectedMinute != -1) {
                 val time = String.format("%02d:%02d", selectedHour, selectedMinute)
-                addAppointmentToDatabase(selectedDate, time, doctorId)
-                val intent_1 = Intent(this, MainActivity6::class.java)
-                startActivity(intent_1)
+
+                if (isAppointmentCancelable(selectedDate, time)) {
+                    addAppointmentToDatabase(selectedDate, time, doctorId)
+                    val intent_1 = Intent(this, MainActivity6::class.java)
+                    startActivity(intent_1)
+                } else {
+                    Toast.makeText(this, "Nie można dodać wizyty w przeszłości!", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Wybierz godzinę!", Toast.LENGTH_SHORT).show()
             }
         }
 
+
     }
 
     private fun showTimePicker() {
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        var hour = calendar.get(Calendar.HOUR_OF_DAY) + 1
         val minute = calendar.get(Calendar.MINUTE)
-
+        if (hour >= 24) {hour = hour - 24}
         val timePicker = TimePickerDialog(this,
             { _, selectedHour, selectedMinute ->
                 this.selectedHour = selectedHour
@@ -102,6 +109,21 @@ class AddAppointmentActivity : AppCompatActivity() {
         }
 
         VolleySingleton.getInstance(this).addToRequestQueue(request)
+    }
+
+    private fun isAppointmentCancelable(date: String, time: String): Boolean {
+        val dateTimeString = "$date $time" // Połączenie daty i godziny
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()) // Format bez sekund
+
+        return try {
+            val appointmentDateTime = dateFormat.parse(dateTimeString)
+            val currentDateTime = Date() // Aktualna data i godzina
+
+            appointmentDateTime.after(currentDateTime) // Sprawdza, czy termin jest w przyszłości
+        } catch (e: Exception) {
+            Log.e("isAppointmentCancelable", "Błąd parsowania daty: ${e.message}")
+            false
+        }
     }
 
 }

@@ -15,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
@@ -92,21 +93,22 @@ class AdmWizytySzczegoly : AppCompatActivity() {
         }
         PrzyciskZapisz.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("Podaj ID pacjenta:")
+            builder.setTitle("Podaj nazwę użytkownika pacjenta:")
 
-            // Tworzenie pola do wpisania ID pacjenta
+            // Pole do wpisania username
             val input = EditText(this)
-            input.inputType = InputType.TYPE_CLASS_NUMBER
+            input.inputType = InputType.TYPE_CLASS_TEXT
             builder.setView(input)
 
             builder.setPositiveButton("Zapisz") { _, _ ->
-                val inputText = input.text.toString()
-                if (inputText.isNotEmpty()) {
-                    val newPatientId = inputText.toInt()
-                    saveAppointment(newPatientId) // Przekazujemy ID pacjenta
+                val username = input.text.toString()
+                if (username.isNotEmpty()) {
+                    fetchPatientIdByUsername(username) // Pobieramy patient_id na podstawie username
                 } else {
-                    Toast.makeText(this, "ID pacjenta nie może być puste", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Nazwa użytkownika nie może być pusta", Toast.LENGTH_SHORT).show()
                 }
+                val intent = Intent(this, MainActivity6::class.java)
+                startActivity(intent)
             }
 
             builder.setNegativeButton("Anuluj") { dialog, _ ->
@@ -114,9 +116,8 @@ class AdmWizytySzczegoly : AppCompatActivity() {
             }
 
             builder.show()
-            val intent = Intent(this, MainActivity6::class.java)
-            startActivity(intent)
         }
+
     }
 
     private fun updateAppointmentToNull(appointmentDate: String?, doctorId: Int?) {
@@ -249,4 +250,33 @@ class AdmWizytySzczegoly : AppCompatActivity() {
 
         VolleySingleton.getInstance(this).addToRequestQueue(request)
     }
+
+    private fun fetchPatientIdByUsername(username: String) {
+        val url = getString(R.string.db_url_xampp) + "get_patient_id.php?id=" + username
+
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    if (response.getBoolean("success")) {
+                        val patientId = response.getInt("patient_id")
+                        saveAppointment(patientId) // Wywołujemy funkcję zapisu z patient_id
+                    } else {
+                        Toast.makeText(this, "Nie znaleziono użytkownika", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Błąd przetwarzania odpowiedzi", Toast.LENGTH_SHORT).show()
+                }
+            },
+            { error ->
+                Log.e("FetchPatientID", "Błąd: ${error.message}")
+                Toast.makeText(this, "Błąd pobierania ID pacjenta", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        VolleySingleton.getInstance(this).addToRequestQueue(request)
+    }
+
+
 }

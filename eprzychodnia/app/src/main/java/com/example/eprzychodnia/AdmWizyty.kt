@@ -147,6 +147,10 @@ class AdmWizyty : AppCompatActivity() {
         fetchWizyty()
 
         val buttonAddAppointment: Button = findViewById(R.id.button2)
+        buttonAddAppointment.visibility = Button.GONE
+        if(isAppointmentCancelable(data_z_kalendarza)){
+            buttonAddAppointment.visibility = Button.VISIBLE
+        }
         buttonAddAppointment.setOnClickListener {
             val intent = Intent(this, AddAppointmentActivity::class.java).also {
                 it.putExtra("doctorId", id_doctor)
@@ -168,5 +172,16 @@ class AdmWizyty : AppCompatActivity() {
             val intentSzczegoly = Intent(this, AdmWizytySzczegoly::class.java)
             startActivity(intentSzczegoly)
         }
+    }
+
+    private fun isAppointmentCancelable(data_z_kalendarza: String?): Boolean {
+        if (data_z_kalendarza == null) return false
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // Tylko rok, miesiąc, dzień
+        val appointmentDateOnly = dateFormat.parse(data_z_kalendarza) // Zamiana stringa na Date
+
+        val currentDateOnly = dateFormat.parse(dateFormat.format(Date())) // Pobranie aktualnej daty BEZ godziny
+
+        return !appointmentDateOnly.before(currentDateOnly) // Sprawdzenie, czy termin nie jest wcześniejszy niż dzisiejszy dzień
     }
 }

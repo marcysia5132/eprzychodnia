@@ -31,28 +31,31 @@ class PacWizyty : AppCompatActivity() {
     val Pomoc = MainActivity0.Pomoc
     val userId = MainActivity.userId
     private fun fetchWizyty() {
-        // Pobierz adres URL z pliku strings.xml
         val url = getString(R.string.get_appointments_url_xampp) + "?doctor_id=$id_doctor&selected_date=${PracWybrLek.selectedDateForDb}"
 
-        // Utwórz zapytanie, które oczekuje odpowiedzi w postaci tablicy JSON
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             Response.Listener { response: JSONArray ->
                 listawizyt.clear()
-                // Iterujemy po elementach tablicy JSON
-                    // Przetwarzamy terminy
-                    for (i in 0 until response.length()) {
-                        val wizyta = response.getJSONObject(i)
-                        if (wizyta.isNull("patient_id")) {
-                            val date = wizyta.getString("date")
-                            Sztuczne += 1
+                Sztuczne = 0
+
+                for (i in 0 until response.length()) {
+                    val wizyta = response.getJSONObject(i)
+                    if (wizyta.isNull("patient_id")) {
+                        val date = wizyta.getString("date")
+
+                        // Sprawdzamy, czy termin jest jeszcze aktualny
+                        if (isAppointmentCancelable(date)) {
                             listawizyt.add(date)
+                            Sztuczne += 1
                         }
                     }
-                if(Sztuczne == 0) {
+                }
+
+                if (Sztuczne == 0) {
                     Toast.makeText(this, "Brak wolnych terminów w wybrany dzień", Toast.LENGTH_SHORT).show()
                 }
-                // Ustawiamy adapter, aby wyświetlić dane w ListView
+
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listawizyt)
                 listView.adapter = adapter
             },
@@ -60,9 +63,10 @@ class PacWizyty : AppCompatActivity() {
                 Log.e("Wizyty pacjenta", "Błąd przy pobieraniu danych: $error")
             }
         )
-        // Dodajemy zapytanie do kolejki Volley (korzystamy z singletona)
+
         VolleySingleton.getInstance(this).addToRequestQueue(request)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -99,4 +103,22 @@ class PacWizyty : AppCompatActivity() {
             }
         }
     }
+
+    private fun isAppointmentCancelable(appointmentDate: String?): Boolean {
+        if (appointmentDate == null) return false
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return try {
+            val appointmentDateTime = dateFormat.parse(appointmentDate) ?: return false
+            val currentDate = Date()
+            val timeDifference = appointmentDateTime.time - currentDate.time
+
+            // Sprawdzamy, czy różnica jest większa niż 24 godziny (86400000 ms)
+            timeDifference > 0
+        } catch (e: Exception) {
+            Log.e("isAppointmentCancelable", "Błąd parsowania daty: ${e.message}")
+            false
+        }
+    }
+
 }
