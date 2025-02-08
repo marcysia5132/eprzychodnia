@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".AdmWizytySzczegoly">
 
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="408dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="472dp"
+        android:gravity="center"
+        android:text="Chcesz zapisać jakiegoś pacjenta na wizytę?"
+        android:textColor="#541ABC"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/AdmWizytySzczegoly_Przycisk_Zapisz"
+        android:layout_width="127dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="540dp"
+        android:text="Zapisz"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/AdmWizytySzczegoly_Przycisk_Odwolaj"
         android:layout_width="127dp"

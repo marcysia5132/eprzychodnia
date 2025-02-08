@@ -18,6 +18,9 @@ import com.android.volley.toolbox.StringRequest
 import com.example.eprzychodnia.PacWizyty.Companion.selectedVisitDate
 import org.json.JSONObject
 import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PacPotwWizyty : AppCompatActivity() {
     private lateinit var confrimButton: Button
@@ -42,6 +45,10 @@ class PacPotwWizyty : AppCompatActivity() {
         WizytaLekarzTextView.text = "Lekarz przyjmujący: $Wybrany_lekarz"
 
         confrimButton = findViewById(R.id.PacPotwWizte_przycisk)
+        confrimButton.visibility = Button.GONE
+        if(isAppointmentCancelable(Wybrana_data_wizyty)) {
+            confrimButton.visibility = Button.VISIBLE
+        }
         confrimButton.setOnClickListener {
             MainActivity0.Pomoc = 0
             saveAppointment()
@@ -74,6 +81,19 @@ class PacPotwWizyty : AppCompatActivity() {
         }
 
         VolleySingleton.getInstance(this).addToRequestQueue(request)
+    }
+
+    private fun isAppointmentCancelable(appointmentDate: String?): Boolean {
+        if (appointmentDate == null) return false
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) // Format daty, dostosuj do formatu w jakim masz datę
+        val appointmentDateTime = dateFormat.parse(appointmentDate)
+
+        val currentDate = Date() // Aktualna data i godzina
+        val timeDifference = appointmentDateTime.time - currentDate.time
+
+        // Sprawdzamy, czy różnica jest większa niż 24 godziny (86400000 ms)
+        return timeDifference > 0
     }
 
 }
