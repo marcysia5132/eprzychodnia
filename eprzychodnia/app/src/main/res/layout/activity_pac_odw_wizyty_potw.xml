@@ -34,7 +34,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="92dp"
         android:gravity="center"
-        android:text="Czy napewno chcesz odwołać wizytę?"
+        android:text="Czy na pewno chcesz odwołać wizytę?"
         android:textColor="#1F36B1"
         android:textSize="20sp"
         android:textStyle="italic"
