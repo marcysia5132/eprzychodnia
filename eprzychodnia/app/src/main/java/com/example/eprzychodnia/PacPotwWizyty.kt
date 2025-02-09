@@ -18,12 +18,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
 import com.android.volley.Response
+import android.provider.Settings
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.example.eprzychodnia.PacWizyty.Companion.selectedVisitDate
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.app.AlarmManager
+import android.app.PendingIntent
+import java.util.Calendar
 
 class PacPotwWizyty : AppCompatActivity() {
     private lateinit var confrimButton: Button
@@ -80,6 +84,8 @@ class PacPotwWizyty : AppCompatActivity() {
 
                 // Wywołanie powiadomienia po zapisaniu wizyty
                 showAppointmentNotification()
+                Log.d("Reminder", "Selected visit date: $selectedVisitDate")
+                scheduleReminderNotification(selectedVisitDate)
             },
             Response.ErrorListener { error ->
                 Log.e("SaveAppointment", "Błąd przy zapisie wizyty: $error")
@@ -122,6 +128,51 @@ class PacPotwWizyty : AppCompatActivity() {
 
         // Wyświetlanie powiadomienia
         notificationManager.notify(1, notification) // ID powiadomienia może być dowolne
+    }
+    private fun scheduleReminderNotification(appointmentDate: String) {
+        // Sprawdzanie uprawnienia do ustawiania dokładnych alarmów (Android 12 i nowsze)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if (!alarmManager.canScheduleExactAlarms()) {
+                // Jeśli aplikacja nie ma uprawnienia, poproś użytkownika o jego przyznanie
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                startActivity(intent)
+                return // Zatrzymaj dalsze wykonywanie metody, jeśli brak uprawnień
+            }
+        }
+        Log.d("Reminder", "scheduleReminderNotification() called")
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val appointmentDateTime = dateFormat.parse(appointmentDate)
+
+        // Oblicz czas 30 godzin przed wizytą
+        val calendar = Calendar.getInstance()
+        calendar.time = appointmentDateTime
+        calendar.add(Calendar.HOUR_OF_DAY, -30)
+
+        // Sprawdź, czy czas przypomnienia jest w przyszłości
+        Log.d("Reminder", "Scheduled time: ${calendar.timeInMillis}, Current time: ${System.currentTimeMillis()}")
+
+        if (calendar.timeInMillis > System.currentTimeMillis()) {
+            val intent = Intent(this, ReminderReceiver::class.java).apply {
+                putExtra("lekarz", Lista_lekarzy.NaszLekarz)
+                putExtra("data_wizyty", appointmentDate)
+            }
+
+            val pendingIntent = PendingIntent.getBroadcast(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                pendingIntent
+            )
+        }
     }
 
     private fun isAppointmentCancelable(appointmentDate: String?): Boolean {
