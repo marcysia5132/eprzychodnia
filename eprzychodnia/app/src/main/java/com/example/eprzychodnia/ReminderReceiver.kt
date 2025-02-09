@@ -36,7 +36,7 @@ class ReminderReceiver : BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Przypomnienie o wizycie")
-            .setContentText("Jutro masz wizytę u $lekarz o godzinie $dataWizyty.")
+            .setContentText("Jutro wizyta u $lekarz na $dataWizyty.")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()
