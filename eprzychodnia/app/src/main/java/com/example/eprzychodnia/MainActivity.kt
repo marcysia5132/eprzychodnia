@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, response.optString("message"), Toast.LENGTH_LONG).show()
             MainActivity.loggedin = true
             MainActivity.session = response.optString("session")
-
             val rolaId = response.optInt("rola_id", -1)
             val userId = response.optInt("id", -1)
 
